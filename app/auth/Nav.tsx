@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Login from './Login'
 async function Nav() {
+  
   return (
     <nav>
       <Link href={'/'}>
