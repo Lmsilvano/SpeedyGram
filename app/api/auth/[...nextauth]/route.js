@@ -9,8 +9,9 @@ const prisma = new PrismaClient()
 
 
 
-const handler = NextAuth({
+export const authOptions = {
     adapter: PrismaAdapter(prisma),
+    secret: process.env.AUTH_SECRET,
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -18,7 +19,8 @@ const handler = NextAuth({
         }),
     ],
 
-})
+}
+const handler = NextAuth(authOptions)
 
 
 export { handler as GET, handler as POST }
