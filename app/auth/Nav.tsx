@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import Login from './Login'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route.js'
-import Logout from './Logout'
+import ButtonLog from './ButtonLog'
+
+
 async function Nav() {
   const session = await getServerSession(authOptions)
   console.log(session)
@@ -12,8 +13,8 @@ async function Nav() {
         <h1 className='font-bold text-lg'>Entrar</h1>
       </Link>
       <ul className='flex items-center gap-6'>
-        {!session?.user && <Login />}
-        {session?.user && <Logout image={session.user?.image || ""} />}
+        {!session?.user && <ButtonLog image={''} isLogged={false} />}
+        {session?.user && <ButtonLog image={session.user?.image || ""} isLogged={true} />}
 
       </ul>
     </nav>
