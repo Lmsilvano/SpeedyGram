@@ -11,10 +11,12 @@ function CreatePost() {
     const [inputHeight, setInputHeight] = useState("auto")
     const [isDisabled, setIsDisabled] = useState(false)
     const handleChange = (e: any) => {
+        console.log(e.target.rows)
         setInputHeight(e.target.scrollHeight)
-        setTitle(e.target.value)
-        if (e.target.value.length === 0) {
+        setTitle(e.target.value.replace(/\s{4,}/g, " "))
+        if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
             setInputHeight('auto')
+            setTitle('')
         }
     };
     return (
