@@ -1,22 +1,32 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 
 
 function CreatePost() {
 
 
-    const [title, setTitle] = useState("")
+    const [value, setValue] = useState("")
     const [inputHeight, setInputHeight] = useState("auto")
     const [isDisabled, setIsDisabled] = useState(false)
-    const handleChange = (e: any) => {
-        console.log(e.target.rows)
-        setInputHeight(e.target.scrollHeight)
-        setTitle(e.target.value.replace(/\s{4,}/g, " "))
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+
+    function updateTextAreaHeight() {
+        const element = textAreaRef.current;
+        if (element) {
+            element.style.height = "auto";
+            element.style.height = `${element.scrollHeight}px`;
+        }
+    }
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setValue(e.target.value);
+        updateTextAreaHeight();
+        setValue(e.target.value.replace(/\s{7,}/g, " "))
         if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
-            setInputHeight('auto')
-            setTitle('')
+            setValue('')
+            updateTextAreaHeight();
         }
     };
     return (
@@ -24,16 +34,16 @@ function CreatePost() {
             className='bg-white my-8 p-8 rounded-md'>
             <div className='flex flex-col my-4'>
                 <textarea onChange={handleChange}
+                    ref={textAreaRef}
                     name="title"
-                    value={title}
-                    style={inputHeight != 'auto' ? { height: `${inputHeight}px` } : {}}
+                    value={value}
                     placeholder="O que você está pensando?"
-                    className='p-4 text-lg rounded-md bg-gray-200 my-2 resize-none '
+                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 resize-none focus:outline-none'
                 ></textarea>
             </div>
 
             <div className='flex items-center justify-between gap-2'>
-                <p className={`font-bold text-sm ${title.length > 300 ? "text-red-500" : "text-gray-700"}`}>{`${title.length}/300`}</p>
+                <p className={`font-bold text-sm ${value.length > 300 ? "text-red-500" : "text-gray-700"}`}>{`${value.length}/300`}</p>
                 <button
                     disabled={isDisabled}
                     className='text-sm bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25'
