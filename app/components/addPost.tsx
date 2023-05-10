@@ -23,6 +23,11 @@ function CreatePost() {
     const handleChange = (e: any) => {
         setValue(e.target.value);
         updateTextAreaHeight();
+        setValue(e.target.value.replace(/\s{7,}/g, " "))
+        if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
+            setValue('')
+            updateTextAreaHeight();
+        }
     };
     return (
         <form
@@ -32,9 +37,8 @@ function CreatePost() {
                     ref={textAreaRef}
                     name="title"
                     value={value}
-                    style={inputHeight != 'auto' ? { height: `${inputHeight}px` } : {}}
                     placeholder="O que você está pensando?"
-                    className='block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent'
+                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 resize-none focus:outline-none'
                 ></textarea>
             </div>
 
