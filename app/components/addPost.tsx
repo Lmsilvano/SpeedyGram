@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, ReactHTMLElement } from 'react'
+import React, { useState, useRef } from 'react'
 
 
 
@@ -20,7 +20,7 @@ function CreatePost() {
             element.style.height = `${element.scrollHeight}px`;
         }
     }
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.target.value);
         updateTextAreaHeight();
         setValue(e.target.value.replace(/\s{7,}/g, " "))
