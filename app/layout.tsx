@@ -1,6 +1,6 @@
 import './globals.css'
 import { Roboto } from 'next/font/google'
-
+import QueryWrapper from './wrappers/QueryWrapper'
 import Nav from './auth/Nav'
 
 const roboto = Roboto({
@@ -22,8 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`mx-4 md:mx-48 xl:mx-96 ${roboto.variable}`}>
         {/* @ts-expect-error Server Component */}
-        <Nav />
-        {children}
+        <QueryWrapper>
+          <Nav />
+          {children}
+        </QueryWrapper>
       </body>
     </html>
   )
