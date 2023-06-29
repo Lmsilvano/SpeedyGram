@@ -30,13 +30,14 @@ async function CreatePost() {
         }
     }
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTextValue(e.target.value);
-        updateTextAreaHeight();
-        setTextValue(e.target.value)
-        if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
-            setTextValue('')
-            updateTextAreaHeight();
-        }
+        console.log(e.target.value)
+        // setTextValue(e.target.value);
+        // updateTextAreaHeight();
+        // setTextValue(e.target.value)
+        // if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
+        //     setTextValue('')
+        //     updateTextAreaHeight();
+        // }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -50,7 +51,7 @@ async function CreatePost() {
             onSubmit={handleSubmit}
             className='bg-white my-8 p-8 rounded-md'>
             <div className='flex flex-col my-4'>
-                <textarea onChange={(e) => setTextValue(e.target.value)}
+                <textarea onChange={handleChange}
                     ref={textAreaRef}
                     name="title"
                     value={textValue}
