@@ -5,12 +5,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 //import axios from 'axios'
 
 async function CreatePost() {
-
-
     const [textValue, setTextValue] = useState("")
     const [inputHeight, setInputHeight] = useState("auto")
     const [isDisabled, setIsDisabled] = useState(false)
+
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    console.log('renderizei')
+
+
 
     //Criar postagem
     const { mutate } = useMutation(
@@ -30,14 +32,16 @@ async function CreatePost() {
         }
     }
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.preventDefault()
         console.log(e.target.value)
-        // setTextValue(e.target.value);
-        // updateTextAreaHeight();
-        // setTextValue(e.target.value)
-        // if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
-        //     setTextValue('')
-        //     updateTextAreaHeight();
-        // }
+        setTextValue(e.target.value);
+
+        updateTextAreaHeight();
+        setTextValue(e.target.value)
+        if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
+            setTextValue('')
+            updateTextAreaHeight();
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +60,7 @@ async function CreatePost() {
                     name="title"
                     value={textValue}
                     placeholder="O que você está pensando?"
-                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 resize-none focus:outline-none'
+                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 '
                 ></textarea>
             </div>
 
