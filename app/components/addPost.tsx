@@ -1,19 +1,19 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-//import axios from 'axios'
+
 
 function CreatePost() {
     const [textValue, setTextValue] = useState("")
-    const [inputHeight, setInputHeight] = useState("auto")
     const [isDisabled, setIsDisabled] = useState(false)
 
     console.log('renderizei')
 
 
 
-    //Criar postagem
+    //Criar mutation para criação de postagem
+
     const { mutate } = useMutation(
         async (textValue) => await fetch('/api/posts', {
             method: 'POST',
@@ -23,19 +23,17 @@ function CreatePost() {
             body: JSON.stringify({ textValue }),
         }))
 
-    // function updateTextAreaHeight() {
-    //     const element = textAreaRef.current;
-    //     if (element) {
-    //         element.style.height = "auto";
-    //         element.style.height = `${element.scrollHeight}px`;
-    //     }
-    // }
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault()
-        setTextValue(e.target.value);
+        setTextValue(e.target.value.replace(/\s{7,}/g, " "));
         const target = e.target as HTMLTextAreaElement
         target.style.height = 'auto'
         target.style.height = `${target.scrollHeight}px`
+        if (e.target.value.length === 0 || e.target.value.replace(/\s/g, '') === '') {
+             setTextValue('')
+             target.style.height = 'auto'
+             target.style.height = `${target.scrollHeight}px`
+         }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +51,7 @@ function CreatePost() {
                     value={textValue}
                     name="title"
                     placeholder="O que você está pensando?"
-                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 '
+                    className='block w-full p-4 text-lg rounded-md bg-gray-200 my-2 resize-none focus:outline-none'
                 ></textarea>
             </div>
 
