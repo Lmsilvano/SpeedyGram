@@ -1,16 +1,17 @@
 // @ts-nocheck
 'use client'
-import QueryWrapper from './wrappers/QueryWrapper'
-import CreatePost from "./components/addPost"
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import CreatePost from "./components/addPost"
+const queryClient = new QueryClient()
 function Home() {
 
   return (
     <main >
-      <QueryWrapper >
+      <QueryClientProvider client={queryClient}>
 
         <CreatePost />
-      </QueryWrapper>
+      </QueryClientProvider>
     </main>
   )
 }
